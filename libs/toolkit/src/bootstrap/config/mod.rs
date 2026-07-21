@@ -2057,6 +2057,7 @@ logging:
                 pool: None,
                 file: None,
                 path: None,
+                lock_keepalive: None,
                 server: None,
             },
         );
