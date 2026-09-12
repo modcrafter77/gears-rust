@@ -14,8 +14,6 @@ pub struct ByteSize(pub u64);
 impl ByteSize {
     /// Parse a human-written size.
     ///
-    /// # Panics
-    ///
     /// Never panics; an unparseable input returns `None`.
     #[must_use]
     pub fn parse(input: &str) -> Option<Self> {
@@ -25,7 +23,7 @@ impl ByteSize {
             .unwrap_or(trimmed.len());
         let (number, unit) = trimmed.split_at(split);
 
-        let value: u64 = number.trim().parse().expect("a leading number");
+        let value: u64 = number.trim().parse().ok()?;
 
         let multiplier = match unit.trim().to_ascii_lowercase().as_str() {
             "" | "b" => 1,
@@ -42,9 +40,11 @@ impl ByteSize {
     }
 
     /// The size as a `u32`, for APIs that take one.
+    ///
+    /// `None` when it does not fit, rather than a silently truncated value.
     #[must_use]
-    pub fn as_u32(self) -> u32 {
-        self.0 as u32
+    pub fn as_u32(self) -> Option<u32> {
+        u32::try_from(self.0).ok()
     }
 }
 
@@ -71,6 +71,12 @@ mod tests {
     #[test]
     fn is_case_insensitive() {
         assert_eq!(ByteSize::parse("8kb"), Some(ByteSize(8_000)));
+    }
+
+    #[test]
+    fn rejects_a_non_numeric_prefix() {
+        assert_eq!(ByteSize::parse("abc"), None);
+        assert_eq!(ByteSize::parse(""), None);
     }
 
     #[test]
