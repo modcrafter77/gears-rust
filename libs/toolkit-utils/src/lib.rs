@@ -6,3 +6,4 @@ pub mod var_expand;
 
 pub mod secret_string;
 pub use secret_string::SecretString;
+pub mod rate_gate;
