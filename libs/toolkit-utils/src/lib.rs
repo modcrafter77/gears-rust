@@ -1,5 +1,6 @@
 #![cfg_attr(coverage_nightly, feature(coverage_attribute))]
 #[cfg(feature = "humantime-serde")]
+pub mod byte_size;
 pub mod humantime_serde;
 pub mod iso8601_duration;
 pub mod var_expand;
