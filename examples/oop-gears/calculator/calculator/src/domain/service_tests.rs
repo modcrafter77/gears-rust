@@ -18,3 +18,5 @@ fn test_sub() {
     let service = Service::new();
     assert_eq!(service.sub(20, 8), 12);
 }
+
+// nonstop inbox check: keep the list endpoint fresh for the review poll.
