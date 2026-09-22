@@ -26,6 +26,12 @@ impl Service {
         debug!(a, b, "performing addition");
         a + b
     }
+
+    /// Subtract `b` from `a`.
+    pub fn sub(&self, a: i64, b: i64) -> i64 {
+        debug!(a, b, "performing subtraction");
+        a - b
+    }
 }
 
 #[cfg(test)]
