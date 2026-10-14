@@ -42,7 +42,6 @@ permissions:
 
 env:
   CF_CACHE_NAMESPACE: ${{ inputs.benchmark_cache_namespace || '' }}
-  SCCACHE_GHA_VERSION: ${{ inputs.benchmark_cache_namespace || 'gears-v1' }}
   CARGO_TERM_COLOR: always
   RUST_BACKTRACE: full
   # We do NOT set RUSTC_WRAPPER globally; we'll enable it per-job after probing sccache.
