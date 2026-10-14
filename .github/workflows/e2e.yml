@@ -11,6 +11,10 @@ on:
     - cron: "0 2 * * *" # nightly full E2E at 02:00 UTC
   workflow_dispatch:
     inputs:
+      benchmark_cache_namespace:
+        description: 'Optional isolated benchmark cache namespace'
+        type: string
+        default: ''
       mode:
         description: "Test suite to run"
         required: false
@@ -29,6 +33,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
+  CF_CACHE_NAMESPACE: ${{ inputs.benchmark_cache_namespace || '' }}
+  SCCACHE_GHA_VERSION: ${{ inputs.benchmark_cache_namespace || 'gears-v1' }}
   CARGO_TERM_COLOR: always
   RUST_BACKTRACE: full
   # Local dev enables incremental via [profile.dev]; CI does not want the churn.
@@ -220,17 +226,20 @@ jobs:
         with:
           cache-bin: false
           cache-targets: false
-          shared-key: pr-${{ runner.os }}-e2e-${{ hashFiles('rust-toolchain.toml') }}
+          shared-key: pr-${{ runner.os }}-e2e-${{ hashFiles('rust-toolchain.toml') }}${{ env.CF_CACHE_NAMESPACE && format('-bench-{0}', env.CF_CACHE_NAMESPACE) || '' }}
 
       # Install sccache (cross-platform)
       - name: Install sccache
         uses: mozilla-actions/sccache-action@fc920bf0ec8de6ee65d409111f7ec508035751ba # v0.0.11
+        with:
+          version: v0.18.0
 
       # Probe sccache; if startup fails, fall back to plain rustc (no hard CI failure).
       - name: Probe sccache & set RUSTC_WRAPPER
         shell: bash
         run: |
-          if sccache --start-server >/dev/null 2>&1; then
+          if sccache --start-server; then
+            sccache --show-stats
             echo "RUSTC_WRAPPER=sccache" >> "$GITHUB_ENV"
             echo "SCCACHE_GHA_ENABLED=true" >> "$GITHUB_ENV"
           else
@@ -337,7 +346,7 @@ jobs:
           retention-days: 7
           path: |
             ${{ github.workspace }}/testing/e2e/logs/**
-            ${{ runner.home }}/.constructorfabric/logs/**
+            ~/.constructorfabric/logs/**
 
       - name: Create or update issue on nightly failure
         if: failure() && github.event_name == 'schedule'
@@ -410,3 +419,8 @@ jobs:
               });
               await tryAssign(created.data.number);
             }
+
+      - name: Save sccache statistics
+        if: ${{ always() && env.RUSTC_WRAPPER == 'sccache' }}
+        continue-on-error: true
+        uses: ./.github/actions/sccache-stats

@@ -428,9 +428,9 @@ install-tools:
 	@cargo gears tools check-version cargo-gears '>=$(CARGO_GEARS_VERSION)' >/dev/null 2>&1 \
 	|| (echo "Installing cargo-gears >= $(CARGO_GEARS_VERSION)..." && cargo install --locked cargo-gears@$(CARGO_GEARS_VERSION))
 	@cargo gears tools check-version cargo-nextest '>=$(NEXTEST_MIN_VERSION)' >/dev/null 2>&1 \
-	|| (echo "Installing cargo-nextest >= $(NEXTEST_MIN_VERSION)..." && cargo install --locked cargo-nextest)
+	|| (echo "Installing cargo-nextest >= $(NEXTEST_MIN_VERSION)..." && cargo install --locked cargo-nextest@0.9.146)
 	@cargo gears tools check-version cargo-deny '>=$(DENY_MIN_VERSION)' >/dev/null 2>&1 \
-	|| (echo "Installing cargo-deny >= $(DENY_MIN_VERSION)..." && cargo install --locked cargo-deny)
+	|| (echo "Installing cargo-deny >= $(DENY_MIN_VERSION)..." && cargo install --locked cargo-deny@0.20.2)
 
 # Run architecture lints via cargo-gears (see Gears.toml for configuration).
 dylint:

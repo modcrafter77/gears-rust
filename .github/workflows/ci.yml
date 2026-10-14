@@ -15,6 +15,15 @@ on:
       - '**/*.md'
       - 'docs/**'
   workflow_dispatch:
+    inputs:
+      benchmark_cache_namespace:
+        description: 'Optional isolated benchmark cache namespace (empty uses normal caches)'
+        type: string
+        default: ''
+      benchmark_target_cache:
+        description: 'Experiment: persist target artifacts in the Linux unit-test job only'
+        type: boolean
+        default: false
 
 # NOTE: workflow-level paths-ignore above still skips the entire workflow for
 # pure doc/markdown changes.  The per-job path filters below provide finer
@@ -32,6 +41,8 @@ permissions:
   contents: read
 
 env:
+  CF_CACHE_NAMESPACE: ${{ inputs.benchmark_cache_namespace || '' }}
+  SCCACHE_GHA_VERSION: ${{ inputs.benchmark_cache_namespace || 'gears-v1' }}
   CARGO_TERM_COLOR: always
   RUST_BACKTRACE: full
   # We do NOT set RUSTC_WRAPPER globally; we'll enable it per-job after probing sccache.
@@ -162,22 +173,25 @@ jobs:
       - name: Install cargo-hack
         uses: taiki-e/install-action@861a07ce7084f55488e375df125cdc99bba60eb7 # v2.87.23
         with:
-          tool: cargo-hack
+          tool: cargo-hack@0.6.45
 
       - name: Cache Cargo/target
         uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
         with:
           cache-bin: false
           cache-targets: false
-          shared-key: pr-clippy-${{ hashFiles('rust-toolchain.toml') }}
+          shared-key: pr-clippy-${{ hashFiles('rust-toolchain.toml') }}${{ env.CF_CACHE_NAMESPACE && format('-bench-{0}', env.CF_CACHE_NAMESPACE) || '' }}
 
       - name: Install sccache
         uses: mozilla-actions/sccache-action@fc920bf0ec8de6ee65d409111f7ec508035751ba # v0.0.11
+        with:
+          version: v0.18.0
 
       - name: Probe sccache & set RUSTC_WRAPPER
         shell: bash
         run: |
-          if sccache --start-server >/dev/null 2>&1; then
+          if sccache --start-server; then
+            sccache --show-stats
             echo "RUSTC_WRAPPER=sccache" >> "$GITHUB_ENV"
             echo "SCCACHE_GHA_ENABLED=true" >> "$GITHUB_ENV"
           else
@@ -202,6 +216,11 @@ jobs:
       # their code (E0308, DE0904, clippy::...) when the command fails.
       - name: cargo clippy
         run: tools/scripts/with_rust_annotations.sh make clippy
+
+      - name: Save sccache statistics
+        if: ${{ always() && env.RUSTC_WRAPPER == 'sccache' }}
+        continue-on-error: true
+        uses: ./.github/actions/sccache-stats
 
   test:
     name: Test Suite (${{ matrix.os }})
@@ -280,25 +299,28 @@ jobs:
       - name: Install nextest
         uses: taiki-e/install-action@861a07ce7084f55488e375df125cdc99bba60eb7 # v2.87.23
         with:
-          tool: nextest
+          tool: nextest@0.9.146
 
       # Cache Cargo registry/git + target/ across platforms.
       - name: Cache Cargo/target
         uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
         with:
           cache-bin: false
-          cache-targets: false
-          shared-key: pr-${{ runner.os }}-${{ hashFiles('rust-toolchain.toml') }}
+          cache-targets: ${{ github.event_name == 'workflow_dispatch' && inputs.benchmark_target_cache && inputs.benchmark_cache_namespace != '' && runner.os == 'Linux' }}
+          shared-key: pr-${{ runner.os }}-${{ hashFiles('rust-toolchain.toml') }}${{ env.CF_CACHE_NAMESPACE && format('-bench-{0}', env.CF_CACHE_NAMESPACE) || '' }}
 
       # Install sccache (cross-platform)
       - name: Install sccache
         uses: mozilla-actions/sccache-action@fc920bf0ec8de6ee65d409111f7ec508035751ba # v0.0.11
+        with:
+          version: v0.18.0
 
       # Probe sccache; if startup fails, fall back to plain rustc (no hard CI failure).
       - name: Probe sccache & set RUSTC_WRAPPER
         shell: bash
         run: |
-          if sccache --start-server >/dev/null 2>&1; then
+          if sccache --start-server; then
+            sccache --show-stats
             echo "RUSTC_WRAPPER=sccache" >> "$GITHUB_ENV"
             echo "SCCACHE_GHA_ENABLED=true" >> "$GITHUB_ENV"
           else
@@ -321,6 +343,11 @@ jobs:
           path: test-results/*.xml
           if-no-files-found: warn
           retention-days: 14
+
+      - name: Save sccache statistics
+        if: ${{ always() && env.RUSTC_WRAPPER == 'sccache' }}
+        continue-on-error: true
+        uses: ./.github/actions/sccache-stats
 
   integration:
     name: Integration tests
@@ -370,25 +397,28 @@ jobs:
       - name: Install nextest
         uses: taiki-e/install-action@861a07ce7084f55488e375df125cdc99bba60eb7 # v2.87.23
         with:
-          tool: nextest
+          tool: nextest@0.9.146
 
       - name: Cache Cargo/target
         uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
         with:
           cache-bin: false
           cache-targets: false
-          shared-key: pr-${{ runner.os }}-integration-${{ hashFiles('rust-toolchain.toml') }}
+          shared-key: pr-${{ runner.os }}-integration-${{ hashFiles('rust-toolchain.toml') }}${{ env.CF_CACHE_NAMESPACE && format('-bench-{0}', env.CF_CACHE_NAMESPACE) || '' }}
 
       # Install sccache (cross-platform)
       - name: Install sccache
         uses: mozilla-actions/sccache-action@fc920bf0ec8de6ee65d409111f7ec508035751ba # v0.0.11
+        with:
+          version: v0.18.0
 
       # Probe sccache; if startup fails, fall back to plain rustc (no hard CI failure).
       - name: Probe sccache & set RUSTC_WRAPPER
         id: setup
         shell: bash
         run: |
-          if sccache --start-server >/dev/null 2>&1; then
+          if sccache --start-server; then
+            sccache --show-stats
             echo "RUSTC_WRAPPER=sccache" >> "$GITHUB_ENV"
             echo "SCCACHE_GHA_ENABLED=true" >> "$GITHUB_ENV"
           else
@@ -520,6 +550,11 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Save sccache statistics
+        if: ${{ always() && env.RUSTC_WRAPPER == 'sccache' }}
+        continue-on-error: true
+        uses: ./.github/actions/sccache-stats
+
   test-fips:
     name: FIPS verification (${{ matrix.os }})
     needs: changes
@@ -580,7 +615,7 @@ jobs:
       - name: Install nextest
         uses: taiki-e/install-action@861a07ce7084f55488e375df125cdc99bba60eb7 # v2.87.23
         with:
-          tool: nextest
+          tool: nextest@0.9.146
 
       # FIPS builds use a SEPARATE sccache bucket from non-FIPS jobs. The `-fips`
       # cache-key segment guarantees a runner that toggles between FIPS and
@@ -591,17 +626,20 @@ jobs:
         with:
           cache-bin: false
           cache-targets: false
-          shared-key: pr-${{ runner.os }}-${{ hashFiles('rust-toolchain.toml') }}-fips
+          shared-key: pr-${{ runner.os }}-${{ hashFiles('rust-toolchain.toml') }}-fips${{ env.CF_CACHE_NAMESPACE && format('-bench-{0}', env.CF_CACHE_NAMESPACE) || '' }}
 
       # Install sccache (cross-platform)
       - name: Install sccache
         uses: mozilla-actions/sccache-action@fc920bf0ec8de6ee65d409111f7ec508035751ba # v0.0.11
+        with:
+          version: v0.18.0
 
       # Probe sccache; if startup fails, fall back to plain rustc (no hard CI failure).
       - name: Probe sccache & set RUSTC_WRAPPER
         shell: bash
         run: |
-          if sccache --start-server >/dev/null 2>&1; then
+          if sccache --start-server; then
+            sccache --show-stats
             echo "RUSTC_WRAPPER=sccache" >> "$GITHUB_ENV"
             echo "SCCACHE_GHA_ENABLED=true" >> "$GITHUB_ENV"
           else
@@ -643,6 +681,12 @@ jobs:
   # PostgreSQL lane the figure is ~55%, because the built-in store is the half
   # of the gear only a real server exercises — so measuring and running are the
   # same job or neither is honest.
+
+      - name: Save sccache statistics
+        if: ${{ always() && env.RUSTC_WRAPPER == 'sccache' }}
+        continue-on-error: true
+        uses: ./.github/actions/sccache-stats
+
   test-graph-storage:
     name: graph-storage (PostgreSQL 19 + pgvector, coverage floor)
     needs: changes
@@ -688,7 +732,7 @@ jobs:
         with:
           cache-bin: false
           cache-targets: false
-          shared-key: pr-${{ runner.os }}-nightly-${{ env.RUSTUP_TOOLCHAIN_NIGHTLY }}-llvm-cov
+          shared-key: pr-${{ runner.os }}-nightly-${{ env.RUSTUP_TOOLCHAIN_NIGHTLY }}-llvm-cov${{ env.CF_CACHE_NAMESPACE && format('-bench-{0}', env.CF_CACHE_NAMESPACE) || '' }}
 
       # The same pin as the workspace coverage job: the v2.70.3 one installed
       # cargo-llvm-cov 0.8.5, which on nightly-2026-08-21 ran every test and
@@ -696,7 +740,7 @@ jobs:
       - name: Install cargo-llvm-cov and nextest
         uses: taiki-e/install-action@861a07ce7084f55488e375df125cdc99bba60eb7 # v2.87.23
         with:
-          tool: cargo-llvm-cov, nextest
+          tool: cargo-llvm-cov@0.9.1, nextest@0.9.146
 
       # PostgreSQL 19 plus a pinned pgvector, on the official base so the
       # stock entrypoint and server arguments testcontainers drives are intact.
@@ -817,7 +861,7 @@ jobs:
         with:
           cache-bin: false
           cache-targets: false
-          shared-key: pr-${{ runner.os }}-${{ hashFiles('rust-toolchain.toml') }}-onnx
+          shared-key: pr-${{ runner.os }}-${{ hashFiles('rust-toolchain.toml') }}-onnx${{ env.CF_CACHE_NAMESPACE && format('-bench-{0}', env.CF_CACHE_NAMESPACE) || '' }}
 
       - name: Fetch ONNX Runtime shared library
         shell: bash
@@ -915,15 +959,18 @@ jobs:
         with:
           cache-bin: false
           cache-targets: false
-          shared-key: pr-${{ runner.os }}-${{ hashFiles('rust-toolchain.toml') }}-magika
+          shared-key: pr-${{ runner.os }}-${{ hashFiles('rust-toolchain.toml') }}-magika${{ env.CF_CACHE_NAMESPACE && format('-bench-{0}', env.CF_CACHE_NAMESPACE) || '' }}
 
       - name: Install sccache
         uses: mozilla-actions/sccache-action@fc920bf0ec8de6ee65d409111f7ec508035751ba # v0.0.11
+        with:
+          version: v0.18.0
 
       - name: Probe sccache & set RUSTC_WRAPPER
         shell: bash
         run: |
-          if sccache --start-server >/dev/null 2>&1; then
+          if sccache --start-server; then
+            sccache --show-stats
             echo "RUSTC_WRAPPER=sccache" >> "$GITHUB_ENV"
             echo "SCCACHE_GHA_ENABLED=true" >> "$GITHUB_ENV"
           else
@@ -952,6 +999,11 @@ jobs:
 
       - name: cargo deny check (magika feature)
         run: make deny-magika
+
+      - name: Save sccache statistics
+        if: ${{ always() && env.RUSTC_WRAPPER == 'sccache' }}
+        continue-on-error: true
+        uses: ./.github/actions/sccache-stats
 
   cfs:
     name: CFS
@@ -1034,12 +1086,12 @@ jobs:
         with:
           cache-bin: false
           cache-targets: false
-          shared-key: pr-${{ runner.os }}-nightly-${{ env.RUSTUP_TOOLCHAIN_NIGHTLY }}-llvm-cov
+          shared-key: pr-${{ runner.os }}-nightly-${{ env.RUSTUP_TOOLCHAIN_NIGHTLY }}-llvm-cov${{ env.CF_CACHE_NAMESPACE && format('-bench-{0}', env.CF_CACHE_NAMESPACE) || '' }}
 
       - name: Install cargo-llvm-cov
         uses: taiki-e/install-action@861a07ce7084f55488e375df125cdc99bba60eb7 # v2.87.23
         with:
-          tool: cargo-llvm-cov, nextest
+          tool: cargo-llvm-cov@0.9.1, nextest@0.9.146
 
       # Generate lcov.info for upload. Customize flags/features as needed.
       #
@@ -1155,10 +1207,11 @@ jobs:
         with:
           tool: protoc@3.34.1
 
-      - name: Install Rust stable toolchain
-        uses: dtolnay/rust-toolchain@5b842231ba77f5c045dba54ac5560fed2db780e2 # stable
-        with:
-          toolchain: stable
+      # Measurement control: use the same compiler as the optimized variant.
+      - name: Install Rust toolchain from rust-toolchain.toml
+        run: |
+          rustup show active-toolchain || rustup toolchain install
+          rustup show
 
       - name: Install cargo-gears
         run: cargo install --locked cargo-gears@0.0.8
