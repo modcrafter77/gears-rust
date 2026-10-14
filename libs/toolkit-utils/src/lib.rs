@@ -2,6 +2,7 @@
 pub mod byte_size;
 #[cfg(feature = "humantime-serde")]
 pub mod humantime_serde;
+pub mod token_bucket;
 pub mod iso8601_duration;
 pub mod var_expand;
 
