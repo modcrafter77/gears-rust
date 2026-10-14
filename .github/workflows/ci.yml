@@ -770,7 +770,7 @@ jobs:
           files: lcov.info
           flags: graph-storage
           disable_search: true
-          fail_ci_if_error: ${{ github.event_name != 'pull_request' }}
+          fail_ci_if_error: ${{ github.event_name != 'pull_request' && inputs.benchmark_cache_namespace == '' }}
 
   # Runs the graph-storage ONNX embedding provider against a real model, which
   # is the only way this crate is checked at all: without artifacts its tests
@@ -1134,7 +1134,7 @@ jobs:
           use_oidc: ${{ github.event_name != 'pull_request' }}
           files: lcov.info
           disable_search: true
-          fail_ci_if_error: ${{ github.event_name != 'pull_request' }}
+          fail_ci_if_error: ${{ github.event_name != 'pull_request' && inputs.benchmark_cache_namespace == '' }}
 
   lint:
     name: Architecture Lints (cargo gears lint)
