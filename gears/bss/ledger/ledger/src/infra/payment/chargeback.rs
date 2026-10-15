@@ -475,10 +475,21 @@ impl ChargebackService {
         }
 
         // 3.–8. Decide the variant, read cash, build, and post inline.
-        let posting = self
+        match self
             .post_phase_inline(ctx, scope, &req, existing.as_ref())
-            .await?;
-        Ok(ChargebackOutcome::Recorded(posting))
+            .await
+        {
+            Ok(posting) => Ok(ChargebackOutcome::Recorded(posting)),
+            // The step-0 short-circuit is racy: an identical request may commit
+            // between it and the transition guard, which then sees this very
+            // phase already applied. Re-check the dedup row so that request is
+            // a replay rather than an invalid transition.
+            Err(e @ DomainError::InvalidDisputeTransition(_)) => self
+                .replay_short_circuit(scope, &req, &business_id)
+                .await?
+                .ok_or(e),
+            Err(e) => Err(e),
+        }
     }
 
     /// The inline post path (steps 3–7): variant selection + transition guard,
