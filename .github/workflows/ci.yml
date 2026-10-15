@@ -46,7 +46,7 @@ env:
   RUST_BACKTRACE: full
   # We do NOT set RUSTC_WRAPPER globally; we'll enable it per-job after probing sccache.
   # RUSTC_WRAPPER: sccache
-  SCCACHE_CACHE_SIZE: "2G"
+  SCCACHE_CACHE_SIZE: "30G"
   # Usually better determinism and smaller cache churn in CI.
   CARGO_INCREMENTAL: "0"
   # Pinned nightly toolchain used by the coverage job. Independent of the pin in
