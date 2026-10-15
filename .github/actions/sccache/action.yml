@@ -1,5 +1,12 @@
-name: Gears remote sccache
-description: Configure GHA before starting sccache; fall back to rustc on startup failure.
+name: Gears sccache
+description: >-
+  Restore a per-job local sccache directory from the Actions cache, then start
+  sccache on local disk; fall back to rustc on startup failure. The directory is
+  saved once at the end of the job by the sccache-stats action, and only on a
+  push to main (or a benchmark dispatch). Pull requests read the main cache and
+  never write, so they cannot evict it from the repository's 10 GB quota. One
+  archive per job also keeps clear of the cache service's upload rate limit,
+  which per-object remote sccache writes exceed (HTTP 429).
 outputs:
   enabled:
     description: Whether the server started and RUSTC_WRAPPER was enabled
@@ -15,17 +22,34 @@ runs:
       uses: mozilla-actions/sccache-action@fc920bf0ec8de6ee65d409111f7ec508035751ba # v0.0.11
       with:
         version: v${{ steps.versions.outputs.sccache }}
-    - name: Start remote sccache
-      id: probe
+    - name: Compute sccache archive key
+      id: key
       shell: bash
       env:
-        SCCACHE_GHA_ENABLED: "true"
-        SCCACHE_GHA_VERSION: ${{ env.CF_CACHE_NAMESPACE || 'gears-v1' }}
-        # Diagnostics: cache write failures are only logged at debug level.
-        SCCACHE_LOG: sccache::server=debug,opendal=warn
-        SCCACHE_ERROR_LOG: ${{ runner.temp }}/sccache-server.log
+        NAMESPACE: ${{ env.CF_CACHE_NAMESPACE || 'v1' }}
+        TOOLCHAIN: ${{ hashFiles('rust-toolchain.toml') }}
+        SAVE: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && env.CF_CACHE_NAMESPACE != '') }}
       run: |
-        echo "SCCACHE_DIAG_LOG=$SCCACHE_ERROR_LOG" >> "$GITHUB_ENV"
+        prefix="sccache-${NAMESPACE}-${GITHUB_JOB}-${RUNNER_OS}-${RUNNER_ARCH}-${TOOLCHAIN:0:12}-"
+        {
+          echo "SCCACHE_DIR=${RUNNER_TEMP}/sccache-dir"
+          echo "SCCACHE_ARCHIVE_KEY=${prefix}${GITHUB_SHA}-${GITHUB_RUN_ATTEMPT}"
+          echo "SCCACHE_ARCHIVE_SAVE=${SAVE}"
+        } >> "$GITHUB_ENV"
+        echo "prefix=${prefix}" >> "$GITHUB_OUTPUT"
+        echo "dir=${RUNNER_TEMP}/sccache-dir" >> "$GITHUB_OUTPUT"
+    - name: Restore sccache archive
+      uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      with:
+        path: ${{ steps.key.outputs.dir }}
+        key: ${{ env.SCCACHE_ARCHIVE_KEY }}
+        restore-keys: ${{ steps.key.outputs.prefix }}
+    - name: Start local sccache
+      id: probe
+      shell: bash
+      run: |
+        mkdir -p "$SCCACHE_DIR"
+        du -sh "$SCCACHE_DIR" || true
         if sccache --start-server; then
           echo "RUSTC_WRAPPER=sccache" >> "$GITHUB_ENV"
           echo "enabled=true" >> "$GITHUB_OUTPUT"

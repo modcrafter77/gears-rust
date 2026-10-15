@@ -49,7 +49,6 @@ env:
   SCCACHE_CACHE_SIZE: "2G"
   # Usually better determinism and smaller cache churn in CI.
   CARGO_INCREMENTAL: "0"
-  SCCACHE_GHA_ENABLED: "true"
   # Pinned nightly toolchain used by the coverage job. Independent of the pin in
   # shear-nightly.yml — they happen to match today but need not.
   RUSTUP_TOOLCHAIN_NIGHTLY: nightly-2026-08-21
@@ -193,8 +192,10 @@ jobs:
           cache-bin: false
           cache-targets: false
           shared-key: pr-clippy-${{ hashFiles('rust-toolchain.toml') }}${{ env.CF_CACHE_NAMESPACE && format('-bench-{0}', env.CF_CACHE_NAMESPACE) || '' }}
+          # Only main pushes (and benchmark dispatches) write; PRs read.
+          save-if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.benchmark_cache_namespace != '') }}
 
-      - name: Configure remote sccache
+      - name: Configure sccache
         id: sccache
         uses: ./.github/actions/sccache
 
@@ -308,9 +309,11 @@ jobs:
           cache-bin: false
           cache-targets: ${{ github.event_name == 'workflow_dispatch' && inputs.benchmark_target_cache && inputs.benchmark_cache_namespace != '' && runner.os == 'Linux' }}
           shared-key: pr-${{ runner.os }}-${{ hashFiles('rust-toolchain.toml') }}${{ env.CF_CACHE_NAMESPACE && format('-bench-{0}', env.CF_CACHE_NAMESPACE) || '' }}
+          # Only main pushes (and benchmark dispatches) write; PRs read.
+          save-if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.benchmark_cache_namespace != '') }}
 
       # Install sccache (cross-platform)
-      - name: Configure remote sccache
+      - name: Configure sccache
         id: sccache
         uses: ./.github/actions/sccache
 
@@ -392,9 +395,11 @@ jobs:
           cache-bin: false
           cache-targets: false
           shared-key: pr-${{ runner.os }}-integration-${{ hashFiles('rust-toolchain.toml') }}${{ env.CF_CACHE_NAMESPACE && format('-bench-{0}', env.CF_CACHE_NAMESPACE) || '' }}
+          # Only main pushes (and benchmark dispatches) write; PRs read.
+          save-if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.benchmark_cache_namespace != '') }}
 
       # Install sccache (cross-platform)
-      - name: Configure remote sccache
+      - name: Configure sccache
         id: sccache
         uses: ./.github/actions/sccache
 
@@ -599,9 +604,11 @@ jobs:
           cache-bin: false
           cache-targets: false
           shared-key: pr-${{ runner.os }}-${{ hashFiles('rust-toolchain.toml') }}-fips${{ env.CF_CACHE_NAMESPACE && format('-bench-{0}', env.CF_CACHE_NAMESPACE) || '' }}
+          # Only main pushes (and benchmark dispatches) write; PRs read.
+          save-if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.benchmark_cache_namespace != '') }}
 
       # Install sccache (cross-platform)
-      - name: Configure remote sccache
+      - name: Configure sccache
         id: sccache
         uses: ./.github/actions/sccache
 
@@ -692,6 +699,8 @@ jobs:
           cache-bin: false
           cache-targets: false
           shared-key: pr-${{ runner.os }}-nightly-${{ env.RUSTUP_TOOLCHAIN_NIGHTLY }}-llvm-cov${{ env.CF_CACHE_NAMESPACE && format('-bench-{0}', env.CF_CACHE_NAMESPACE) || '' }}
+          # Only main pushes (and benchmark dispatches) write; PRs read.
+          save-if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.benchmark_cache_namespace != '') }}
 
       # The same pin as the workspace coverage job: the v2.70.3 one installed
       # cargo-llvm-cov 0.8.5, which on nightly-2026-08-21 ran every test and
@@ -821,6 +830,8 @@ jobs:
           cache-bin: false
           cache-targets: false
           shared-key: pr-${{ runner.os }}-${{ hashFiles('rust-toolchain.toml') }}-onnx${{ env.CF_CACHE_NAMESPACE && format('-bench-{0}', env.CF_CACHE_NAMESPACE) || '' }}
+          # Only main pushes (and benchmark dispatches) write; PRs read.
+          save-if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.benchmark_cache_namespace != '') }}
 
       - name: Fetch ONNX Runtime shared library
         shell: bash
@@ -919,8 +930,10 @@ jobs:
           cache-bin: false
           cache-targets: false
           shared-key: pr-${{ runner.os }}-${{ hashFiles('rust-toolchain.toml') }}-magika${{ env.CF_CACHE_NAMESPACE && format('-bench-{0}', env.CF_CACHE_NAMESPACE) || '' }}
+          # Only main pushes (and benchmark dispatches) write; PRs read.
+          save-if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.benchmark_cache_namespace != '') }}
 
-      - name: Configure remote sccache
+      - name: Configure sccache
         id: sccache
         uses: ./.github/actions/sccache
 
@@ -1030,6 +1043,8 @@ jobs:
           cache-bin: false
           cache-targets: false
           shared-key: pr-${{ runner.os }}-nightly-${{ env.RUSTUP_TOOLCHAIN_NIGHTLY }}-llvm-cov${{ env.CF_CACHE_NAMESPACE && format('-bench-{0}', env.CF_CACHE_NAMESPACE) || '' }}
+          # Only main pushes (and benchmark dispatches) write; PRs read.
+          save-if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.benchmark_cache_namespace != '') }}
 
       - name: Install cargo-llvm-cov
         uses: ./.github/actions/ci-tools
