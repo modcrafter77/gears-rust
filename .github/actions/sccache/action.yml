@@ -1,11 +1,11 @@
 name: Gears sccache
 description: >-
-  Restore a per-job local sccache directory from the Actions cache, then start
+  Restore the OS's local sccache directory from the Actions cache, then start
   sccache on local disk; fall back to rustc on startup failure. The directory is
-  saved once at the end of the job by the sccache-stats action, and only on a
-  push to main (or a benchmark dispatch). Pull requests read the main cache and
+  saved once at the end of the test job by the sccache-stats action, and only
+  on a push to main (or a benchmark dispatch). Pull requests read the main cache and
   never write, so they cannot evict it from the repository's 10 GB quota. One
-  archive per job also keeps clear of the cache service's upload rate limit,
+  archive per OS also keeps clear of the cache service's upload rate limit,
   which per-object remote sccache writes exceed (HTTP 429).
 outputs:
   enabled:
@@ -28,9 +28,12 @@ runs:
       env:
         NAMESPACE: ${{ env.CF_CACHE_NAMESPACE || 'v1' }}
         TOOLCHAIN: ${{ hashFiles('rust-toolchain.toml') }}
-        SAVE: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && env.CF_CACHE_NAMESPACE != '') }}
+        # One archive per OS keeps the main cache inside the 10 GB quota: the
+        # Linux jobs compile largely the same crates. Only the test job writes
+        # it; every other job on that OS restores it read-only.
+        SAVE: ${{ github.job == 'test' && ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && env.CF_CACHE_NAMESPACE != '')) }}
       run: |
-        prefix="sccache-${NAMESPACE}-${GITHUB_JOB}-${RUNNER_OS}-${RUNNER_ARCH}-${TOOLCHAIN:0:12}-"
+        prefix="sccache-${NAMESPACE}-${RUNNER_OS}-${RUNNER_ARCH}-${TOOLCHAIN:0:12}-"
         {
           echo "SCCACHE_DIR=${RUNNER_TEMP}/sccache-dir"
           echo "SCCACHE_ARCHIVE_KEY=${prefix}${GITHUB_SHA}-${GITHUB_RUN_ATTEMPT}"
