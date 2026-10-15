@@ -21,7 +21,11 @@ runs:
       env:
         SCCACHE_GHA_ENABLED: "true"
         SCCACHE_GHA_VERSION: ${{ env.CF_CACHE_NAMESPACE || 'gears-v1' }}
+        # Diagnostics: cache write failures are only logged at debug level.
+        SCCACHE_LOG: sccache::server=debug,opendal=warn
+        SCCACHE_ERROR_LOG: ${{ runner.temp }}/sccache-server.log
       run: |
+        echo "SCCACHE_DIAG_LOG=$SCCACHE_ERROR_LOG" >> "$GITHUB_ENV"
         if sccache --start-server; then
           echo "RUSTC_WRAPPER=sccache" >> "$GITHUB_ENV"
           echo "enabled=true" >> "$GITHUB_OUTPUT"
