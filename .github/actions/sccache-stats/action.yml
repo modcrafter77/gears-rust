@@ -13,6 +13,13 @@ runs:
         sccache --version >> ci-metrics/toolchain.txt
         python3 -c 'import json, os; names = ["GITHUB_SHA", "GITHUB_RUN_ID", "GITHUB_RUN_ATTEMPT", "RUNNER_OS", "RUNNER_ARCH", "ImageOS", "ImageVersion", "RUSTFLAGS", "CARGO_INCREMENTAL", "CF_CACHE_NAMESPACE"]; print(json.dumps({name: os.environ.get(name, "") for name in names}, indent=2))' > ci-metrics/environment.json
         cat ci-metrics/sccache.txt
+        if [ -n "${SCCACHE_DIAG_LOG:-}" ] && [ -f "$SCCACHE_DIAG_LOG" ]; then
+          cp "$SCCACHE_DIAG_LOG" ci-metrics/sccache-server.log
+          grep -E 'Error executing cache write|WARN|ERROR' ci-metrics/sccache-server.log \
+            | sed -E 's/[0-9a-f]{16,}/<hash>/g; s/^\[[^]]*\] *//' \
+            | sort | uniq -c | sort -rn | head -40 > ci-metrics/sccache-errors.txt || true
+          cat ci-metrics/sccache-errors.txt
+        fi
         {
           echo '### sccache'
           echo '```text'
