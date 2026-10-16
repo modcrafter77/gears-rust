@@ -31,7 +31,9 @@ runs:
         # One archive per OS keeps the main cache inside the 10 GB quota: the
         # Linux jobs compile largely the same crates. Only the test job writes
         # it; every other job on that OS restores it read-only.
-        SAVE: ${{ github.job == 'test' && ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && env.CF_CACHE_NAMESPACE != '')) }}
+        # macOS keeps sccache job-local: Linux and Windows archives fill the
+        # quota, and macOS is not the critical path.
+        SAVE: ${{ github.job == 'test' && runner.os != 'macOS' && ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && env.CF_CACHE_NAMESPACE != '')) }}
       run: |
         prefix="sccache-${NAMESPACE}-${RUNNER_OS}-${RUNNER_ARCH}-${TOOLCHAIN:0:12}-"
         {
@@ -42,6 +44,7 @@ runs:
         echo "prefix=${prefix}" >> "$GITHUB_OUTPUT"
         echo "dir=${RUNNER_TEMP}/sccache-dir" >> "$GITHUB_OUTPUT"
     - name: Restore sccache archive
+      if: runner.os != 'macOS'
       uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
       with:
         path: ${{ steps.key.outputs.dir }}
