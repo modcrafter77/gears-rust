@@ -1,0 +1,1535 @@
+{
+  "schema": 1,
+  "repo": "modcrafter77/gears-rust",
+  "samples": [
+    {
+      "run_id": 38646280492,
+      "attempt": 1,
+      "sha": "ac0740c76bb1b2fe08eb0f1178b76d79f5944795",
+      "url": "https://github.com/modcrafter77/gears-rust/actions/runs/38646280492",
+      "event": "workflow_dispatch",
+      "conclusion": "success",
+      "workflow": "CI",
+      "cache_state": "cold",
+      "jobs": [
+        {
+          "name": "Detect changes",
+          "id": 116133824258,
+          "conclusion": "success",
+          "seconds": 20.0,
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "runner_name": "GitHub Actions 1000001151",
+          "start_offset_seconds": 5.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Checkout",
+              "conclusion": "success",
+              "seconds": 6.0
+            },
+            {
+              "name": "Detect changed paths",
+              "conclusion": "success",
+              "seconds": 9.0
+            },
+            {
+              "name": "Post Checkout",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success",
+              "seconds": 0.0
+            }
+          ]
+        },
+        {
+          "name": "Integration tests",
+          "id": 116133976474,
+          "conclusion": "success",
+          "seconds": 3368.0,
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "runner_name": "GitHub Actions 1000001152",
+          "start_offset_seconds": 28.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "Free disk space",
+              "conclusion": "success",
+              "seconds": 100.0
+            },
+            {
+              "name": "Checkout",
+              "conclusion": "success",
+              "seconds": 6.0
+            },
+            {
+              "name": "Install protoc",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Install Go (required for aws-lc-fips-sys FIPS build)",
+              "conclusion": "success",
+              "seconds": 8.0
+            },
+            {
+              "name": "Install Rust toolchain from rust-toolchain.toml",
+              "conclusion": "success",
+              "seconds": 9.0
+            },
+            {
+              "name": "Install nextest",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Configure remote sccache",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "UI tests for toolkit macros libraries",
+              "conclusion": "success",
+              "seconds": 424.0
+            },
+            {
+              "name": "Test users_info with Postgres (integration)",
+              "conclusion": "success",
+              "seconds": 81.0
+            },
+            {
+              "name": "Test timescaledb usage-collector plugin (pg integration)",
+              "conclusion": "success",
+              "seconds": 169.0
+            },
+            {
+              "name": "Test clickhouse usage-collector plugin (ch integration)",
+              "conclusion": "success",
+              "seconds": 84.0
+            },
+            {
+              "name": "Test postgres-cluster-plugin (pg integration)",
+              "conclusion": "success",
+              "seconds": 166.0
+            },
+            {
+              "name": "Test k8s-cluster-plugin (k3s L2+L3 integration)",
+              "conclusion": "success",
+              "seconds": 175.0
+            },
+            {
+              "name": "Test resource-group (pg smoke, integration)",
+              "conclusion": "success",
+              "seconds": 94.0
+            },
+            {
+              "name": "Test settings-service (pg migrations, integration)",
+              "conclusion": "success",
+              "seconds": 49.0
+            },
+            {
+              "name": "Test bss-pricing with Postgres (integration)",
+              "conclusion": "success",
+              "seconds": 380.0
+            },
+            {
+              "name": "Test coord with Postgres (integration)",
+              "conclusion": "success",
+              "seconds": 51.0
+            },
+            {
+              "name": "Test bss-products with Postgres (integration)",
+              "conclusion": "success",
+              "seconds": 211.0
+            },
+            {
+              "name": "Test bss-ledger with Postgres (integration)",
+              "conclusion": "success",
+              "seconds": 676.0
+            },
+            {
+              "name": "Test redis-cluster-plugin (redis integration)",
+              "conclusion": "success",
+              "seconds": 59.0
+            },
+            {
+              "name": "Test toolkit-db (sqlite integration)",
+              "conclusion": "success",
+              "seconds": 182.0
+            },
+            {
+              "name": "Test toolkit-db (pg integration)",
+              "conclusion": "success",
+              "seconds": 89.0
+            },
+            {
+              "name": "Test toolkit-db (pgq unit + PG19 integration)",
+              "conclusion": "success",
+              "seconds": 46.0
+            },
+            {
+              "name": "Test toolkit-db (mysql integration)",
+              "conclusion": "success",
+              "seconds": 93.0
+            },
+            {
+              "name": "Test types-registry (db integration)",
+              "conclusion": "success",
+              "seconds": 186.0
+            },
+            {
+              "name": "Upload Rust test results",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "Save sccache statistics",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "Post Configure remote sccache",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 15.0
+            },
+            {
+              "name": "Post Install nextest",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Install Go (required for aws-lc-fips-sys FIPS build)",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Checkout",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success",
+              "seconds": 0.0
+            }
+          ]
+        },
+        {
+          "name": "Clippy",
+          "id": 116133976503,
+          "conclusion": "success",
+          "seconds": 1426.0,
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "runner_name": "GitHub Actions 1000001155",
+          "start_offset_seconds": 27.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Free disk space",
+              "conclusion": "success",
+              "seconds": 159.0
+            },
+            {
+              "name": "Checkout",
+              "conclusion": "success",
+              "seconds": 6.0
+            },
+            {
+              "name": "Install protoc",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Install Go (required for aws-lc-fips-sys FIPS build)",
+              "conclusion": "success",
+              "seconds": 8.0
+            },
+            {
+              "name": "Install Rust toolchain from rust-toolchain.toml",
+              "conclusion": "success",
+              "seconds": 9.0
+            },
+            {
+              "name": "Install cargo-hack",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Configure remote sccache",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "No unpinned database container images",
+              "conclusion": "success",
+              "seconds": 31.0
+            },
+            {
+              "name": "cargo clippy",
+              "conclusion": "success",
+              "seconds": 1196.0
+            },
+            {
+              "name": "Save sccache statistics",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Post Configure remote sccache",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 9.0
+            },
+            {
+              "name": "Post Install cargo-hack",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Install Go (required for aws-lc-fips-sys FIPS build)",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Checkout",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success",
+              "seconds": 0.0
+            }
+          ]
+        },
+        {
+          "name": "Security (cargo-deny on Ubuntu)",
+          "id": 116133976519,
+          "conclusion": "success",
+          "seconds": 30.0,
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "runner_name": "GitHub Actions 1000001162",
+          "start_offset_seconds": 28.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Checkout",
+              "conclusion": "success",
+              "seconds": 6.0
+            },
+            {
+              "name": "Install Rust toolchain from rust-toolchain.toml",
+              "conclusion": "success",
+              "seconds": 8.0
+            },
+            {
+              "name": "Install cargo-deny",
+              "conclusion": "success",
+              "seconds": 4.0
+            },
+            {
+              "name": "cargo deny check",
+              "conclusion": "success",
+              "seconds": 8.0
+            },
+            {
+              "name": "Post Install cargo-deny",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Checkout",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success",
+              "seconds": 0.0
+            }
+          ]
+        },
+        {
+          "name": "Test Suite (ubuntu-latest)",
+          "id": 116133976547,
+          "conclusion": "success",
+          "seconds": 2647.0,
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "runner_name": "GitHub Actions 1000001161",
+          "start_offset_seconds": 28.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success",
+              "seconds": 3.0
+            },
+            {
+              "name": "Free disk space",
+              "conclusion": "success",
+              "seconds": 92.0
+            },
+            {
+              "name": "Force LF in working tree (w/a for Windows)",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "Checkout",
+              "conclusion": "success",
+              "seconds": 7.0
+            },
+            {
+              "name": "Install protoc",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Validate gear naming conventions",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Validate PR-review rule set",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "PR-review script tests",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "Validate packaging metadata (readme/license-file paths)",
+              "conclusion": "success",
+              "seconds": 13.0
+            },
+            {
+              "name": "Validate release configuration (publish flags, release-plz.toml)",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Install Go (required for aws-lc-fips-sys FIPS build)",
+              "conclusion": "success",
+              "seconds": 8.0
+            },
+            {
+              "name": "Install Rust toolchain from rust-toolchain.toml",
+              "conclusion": "success",
+              "seconds": 9.0
+            },
+            {
+              "name": "Install nextest",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Configure remote sccache",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "cargo test (no macros)",
+              "conclusion": "success",
+              "seconds": 2487.0
+            },
+            {
+              "name": "Upload Rust test results",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Save sccache statistics",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Post Configure remote sccache",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 15.0
+            },
+            {
+              "name": "Post Install nextest",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Install Go (required for aws-lc-fips-sys FIPS build)",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Checkout",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success",
+              "seconds": 0.0
+            }
+          ]
+        },
+        {
+          "name": "Test Suite (macos-latest)",
+          "id": 116133976562,
+          "conclusion": "success",
+          "seconds": 4330.0,
+          "labels": [
+            "macos-latest"
+          ],
+          "runner_name": "GitHub Actions 1000001156",
+          "start_offset_seconds": 35.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success",
+              "seconds": 3.0
+            },
+            {
+              "name": "Free disk space",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "Force LF in working tree (w/a for Windows)",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "Checkout",
+              "conclusion": "success",
+              "seconds": 5.0
+            },
+            {
+              "name": "Install protoc",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Validate gear naming conventions",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Validate PR-review rule set",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "PR-review script tests",
+              "conclusion": "success",
+              "seconds": 4.0
+            },
+            {
+              "name": "Validate packaging metadata (readme/license-file paths)",
+              "conclusion": "success",
+              "seconds": 22.0
+            },
+            {
+              "name": "Validate release configuration (publish flags, release-plz.toml)",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Install Go (required for aws-lc-fips-sys FIPS build)",
+              "conclusion": "success",
+              "seconds": 24.0
+            },
+            {
+              "name": "Install Rust toolchain from rust-toolchain.toml",
+              "conclusion": "success",
+              "seconds": 10.0
+            },
+            {
+              "name": "Install nextest",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 3.0
+            },
+            {
+              "name": "Configure remote sccache",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "cargo test (no macros)",
+              "conclusion": "success",
+              "seconds": 4205.0
+            },
+            {
+              "name": "Upload Rust test results",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "Save sccache statistics",
+              "conclusion": "success",
+              "seconds": 3.0
+            },
+            {
+              "name": "Post Configure remote sccache",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 34.0
+            },
+            {
+              "name": "Post Install nextest",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Install Go (required for aws-lc-fips-sys FIPS build)",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Checkout",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success",
+              "seconds": 4.0
+            }
+          ]
+        },
+        {
+          "name": "Magika feature verification",
+          "id": 116133976585,
+          "conclusion": "success",
+          "seconds": 278.0,
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "runner_name": "GitHub Actions 1000001154",
+          "start_offset_seconds": 28.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "Checkout",
+              "conclusion": "success",
+              "seconds": 6.0
+            },
+            {
+              "name": "Install protoc",
+              "conclusion": "success",
+              "seconds": 6.0
+            },
+            {
+              "name": "Install Rust toolchain from rust-toolchain.toml",
+              "conclusion": "success",
+              "seconds": 9.0
+            },
+            {
+              "name": "Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Configure remote sccache",
+              "conclusion": "success",
+              "seconds": 3.0
+            },
+            {
+              "name": "Fetch ONNX Runtime shared library",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "cargo test (file-parser, magika feature)",
+              "conclusion": "success",
+              "seconds": 230.0
+            },
+            {
+              "name": "Install cargo-deny",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "cargo deny check (magika feature)",
+              "conclusion": "success",
+              "seconds": 8.0
+            },
+            {
+              "name": "Save sccache statistics",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Post Install cargo-deny",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Configure remote sccache",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 6.0
+            },
+            {
+              "name": "Post Checkout",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success",
+              "seconds": 0.0
+            }
+          ]
+        },
+        {
+          "name": "Test Suite (windows-latest)",
+          "id": 116133976615,
+          "conclusion": "success",
+          "seconds": 5162.0,
+          "labels": [
+            "windows-latest"
+          ],
+          "runner_name": "GitHub Actions 1000001157",
+          "start_offset_seconds": 28.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success",
+              "seconds": 3.0
+            },
+            {
+              "name": "Free disk space",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "Force LF in working tree (w/a for Windows)",
+              "conclusion": "success",
+              "seconds": 3.0
+            },
+            {
+              "name": "Checkout",
+              "conclusion": "success",
+              "seconds": 15.0
+            },
+            {
+              "name": "Install protoc",
+              "conclusion": "success",
+              "seconds": 4.0
+            },
+            {
+              "name": "Validate gear naming conventions",
+              "conclusion": "success",
+              "seconds": 4.0
+            },
+            {
+              "name": "Validate PR-review rule set",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "PR-review script tests",
+              "conclusion": "success",
+              "seconds": 8.0
+            },
+            {
+              "name": "Validate packaging metadata (readme/license-file paths)",
+              "conclusion": "success",
+              "seconds": 26.0
+            },
+            {
+              "name": "Validate release configuration (publish flags, release-plz.toml)",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Install Go (required for aws-lc-fips-sys FIPS build)",
+              "conclusion": "success",
+              "seconds": 24.0
+            },
+            {
+              "name": "Install Rust toolchain from rust-toolchain.toml",
+              "conclusion": "success",
+              "seconds": 27.0
+            },
+            {
+              "name": "Install nextest",
+              "conclusion": "success",
+              "seconds": 3.0
+            },
+            {
+              "name": "Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 54.0
+            },
+            {
+              "name": "Configure remote sccache",
+              "conclusion": "success",
+              "seconds": 3.0
+            },
+            {
+              "name": "cargo test (no macros)",
+              "conclusion": "success",
+              "seconds": 4880.0
+            },
+            {
+              "name": "Upload Rust test results",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "Save sccache statistics",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Post Configure remote sccache",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Post Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 94.0
+            },
+            {
+              "name": "Post Install nextest",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Install Go (required for aws-lc-fips-sys FIPS build)",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Post Checkout",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success",
+              "seconds": 1.0
+            }
+          ]
+        },
+        {
+          "name": "graph-storage (PostgreSQL 19 + pgvector, coverage floor)",
+          "id": 116133976646,
+          "conclusion": "success",
+          "seconds": 376.0,
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "runner_name": "GitHub Actions 1000001164",
+          "start_offset_seconds": 29.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "Checkout",
+              "conclusion": "success",
+              "seconds": 6.0
+            },
+            {
+              "name": "Install protoc",
+              "conclusion": "success",
+              "seconds": 6.0
+            },
+            {
+              "name": "Install Rust toolchain (with llvm-tools)",
+              "conclusion": "success",
+              "seconds": 11.0
+            },
+            {
+              "name": "Pin nightly for all cargo commands",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Install cargo-llvm-cov and nextest",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "Build the PostgreSQL 19 + pgvector image",
+              "conclusion": "success",
+              "seconds": 47.0
+            },
+            {
+              "name": "Test and enforce the coverage floor",
+              "conclusion": "success",
+              "seconds": 284.0
+            },
+            {
+              "name": "Upload to Codecov",
+              "conclusion": "success",
+              "seconds": 3.0
+            },
+            {
+              "name": "Post Install cargo-llvm-cov and nextest",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 10.0
+            },
+            {
+              "name": "Post Checkout",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success",
+              "seconds": 0.0
+            }
+          ]
+        },
+        {
+          "name": "Architecture Lints (cargo gears lint)",
+          "id": 116133976648,
+          "conclusion": "success",
+          "seconds": 857.0,
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "runner_name": "GitHub Actions 1000001159",
+          "start_offset_seconds": 28.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Checkout",
+              "conclusion": "success",
+              "seconds": 6.0
+            },
+            {
+              "name": "Install protoc",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Install project Rust toolchain",
+              "conclusion": "success",
+              "seconds": 11.0
+            },
+            {
+              "name": "Install pinned cargo-gears",
+              "conclusion": "success",
+              "seconds": 332.0
+            },
+            {
+              "name": "Run architecture lints",
+              "conclusion": "success",
+              "seconds": 502.0
+            },
+            {
+              "name": "Post Install pinned cargo-gears",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Post Checkout",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success",
+              "seconds": 0.0
+            }
+          ]
+        },
+        {
+          "name": "ONNX embedding provider",
+          "id": 116133976663,
+          "conclusion": "success",
+          "seconds": 305.0,
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "runner_name": "GitHub Actions 1000001153",
+          "start_offset_seconds": 27.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Checkout",
+              "conclusion": "success",
+              "seconds": 6.0
+            },
+            {
+              "name": "Install protoc",
+              "conclusion": "success",
+              "seconds": 5.0
+            },
+            {
+              "name": "Install Rust toolchain from rust-toolchain.toml",
+              "conclusion": "success",
+              "seconds": 9.0
+            },
+            {
+              "name": "Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Fetch ONNX Runtime shared library",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Fetch the model and tokenizer",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "cargo test (ONNX embedding provider)",
+              "conclusion": "success",
+              "seconds": 71.0
+            },
+            {
+              "name": "cargo test (graph-storage ONNX provider wiring)",
+              "conclusion": "success",
+              "seconds": 141.0
+            },
+            {
+              "name": "cargo check (graph-storage with the onnx feature)",
+              "conclusion": "success",
+              "seconds": 57.0
+            },
+            {
+              "name": "Post Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 10.0
+            },
+            {
+              "name": "Post Checkout",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success",
+              "seconds": 0.0
+            }
+          ]
+        },
+        {
+          "name": "FIPS verification (ubuntu-latest)",
+          "id": 116133976673,
+          "conclusion": "success",
+          "seconds": 719.0,
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "runner_name": "GitHub Actions 1000001160",
+          "start_offset_seconds": 28.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "Free disk space",
+              "conclusion": "success",
+              "seconds": 176.0
+            },
+            {
+              "name": "Force LF in working tree (w/a for Windows)",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "Checkout",
+              "conclusion": "success",
+              "seconds": 5.0
+            },
+            {
+              "name": "Install protoc",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Install Go (required for aws-lc-fips-sys FIPS build)",
+              "conclusion": "success",
+              "seconds": 5.0
+            },
+            {
+              "name": "Install Rust toolchain from rust-toolchain.toml",
+              "conclusion": "success",
+              "seconds": 8.0
+            },
+            {
+              "name": "Install nextest",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Configure remote sccache",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "FIPS tests (Linux / aws-lc-fips)",
+              "conclusion": "success",
+              "seconds": 505.0
+            },
+            {
+              "name": "FIPS tests (macOS / corecrypto)",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "FIPS build check (Windows / CNG)",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "Save sccache statistics",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "Post Configure remote sccache",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 7.0
+            },
+            {
+              "name": "Post Install nextest",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Install Go (required for aws-lc-fips-sys FIPS build)",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Checkout",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success",
+              "seconds": 0.0
+            }
+          ]
+        },
+        {
+          "name": "FIPS verification (macos-latest)",
+          "id": 116133976718,
+          "conclusion": "success",
+          "seconds": 313.0,
+          "labels": [
+            "macos-latest"
+          ],
+          "runner_name": "GitHub Actions 1000001165",
+          "start_offset_seconds": 36.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success",
+              "seconds": 4.0
+            },
+            {
+              "name": "Free disk space",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "Force LF in working tree (w/a for Windows)",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "Checkout",
+              "conclusion": "success",
+              "seconds": 10.0
+            },
+            {
+              "name": "Install protoc",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Install Go (required for aws-lc-fips-sys FIPS build)",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "Install Rust toolchain from rust-toolchain.toml",
+              "conclusion": "success",
+              "seconds": 9.0
+            },
+            {
+              "name": "Install nextest",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 3.0
+            },
+            {
+              "name": "Configure remote sccache",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "FIPS tests (Linux / aws-lc-fips)",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "FIPS tests (macOS / corecrypto)",
+              "conclusion": "success",
+              "seconds": 230.0
+            },
+            {
+              "name": "FIPS build check (Windows / CNG)",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "Save sccache statistics",
+              "conclusion": "success",
+              "seconds": 3.0
+            },
+            {
+              "name": "Post Configure remote sccache",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 43.0
+            },
+            {
+              "name": "Post Install nextest",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Checkout",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success",
+              "seconds": 2.0
+            }
+          ]
+        },
+        {
+          "name": "Code Coverage (cargo-llvm-cov)",
+          "id": 116133976722,
+          "conclusion": "success",
+          "seconds": 2529.0,
+          "labels": [
+            "ubuntu-latest"
+          ],
+          "runner_name": "GitHub Actions 1000001163",
+          "start_offset_seconds": 28.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success",
+              "seconds": 3.0
+            },
+            {
+              "name": "Free disk space",
+              "conclusion": "success",
+              "seconds": 127.0
+            },
+            {
+              "name": "Checkout",
+              "conclusion": "success",
+              "seconds": 5.0
+            },
+            {
+              "name": "Install protoc",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Install Rust toolchain (with llvm-tools)",
+              "conclusion": "success",
+              "seconds": 12.0
+            },
+            {
+              "name": "Pin nightly for all cargo commands",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Install cargo-llvm-cov",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Coverage (lcov)",
+              "conclusion": "success",
+              "seconds": 2360.0
+            },
+            {
+              "name": "Annotate failing tests",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "Upload LCOV artifact",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "Upload to Codecov",
+              "conclusion": "success",
+              "seconds": 5.0
+            },
+            {
+              "name": "Post Install cargo-llvm-cov",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 10.0
+            },
+            {
+              "name": "Post Checkout",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success",
+              "seconds": 0.0
+            }
+          ]
+        },
+        {
+          "name": "FIPS verification (windows-latest)",
+          "id": 116133976761,
+          "conclusion": "success",
+          "seconds": 247.0,
+          "labels": [
+            "windows-latest"
+          ],
+          "runner_name": "GitHub Actions 1000001158",
+          "start_offset_seconds": 28.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "Free disk space",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "Force LF in working tree (w/a for Windows)",
+              "conclusion": "success",
+              "seconds": 1.0
+            },
+            {
+              "name": "Checkout",
+              "conclusion": "success",
+              "seconds": 11.0
+            },
+            {
+              "name": "Install protoc",
+              "conclusion": "success",
+              "seconds": 3.0
+            },
+            {
+              "name": "Install Go (required for aws-lc-fips-sys FIPS build)",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "Install Rust toolchain from rust-toolchain.toml",
+              "conclusion": "success",
+              "seconds": 24.0
+            },
+            {
+              "name": "Install nextest",
+              "conclusion": "success",
+              "seconds": 3.0
+            },
+            {
+              "name": "Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 7.0
+            },
+            {
+              "name": "Configure remote sccache",
+              "conclusion": "success",
+              "seconds": 2.0
+            },
+            {
+              "name": "FIPS tests (Linux / aws-lc-fips)",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "FIPS tests (macOS / corecrypto)",
+              "conclusion": "skipped",
+              "seconds": 0.0
+            },
+            {
+              "name": "FIPS build check (Windows / CNG)",
+              "conclusion": "success",
+              "seconds": 114.0
+            },
+            {
+              "name": "Save sccache statistics",
+              "conclusion": "success",
+              "seconds": 3.0
+            },
+            {
+              "name": "Post Configure remote sccache",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Cache Cargo/target",
+              "conclusion": "success",
+              "seconds": 71.0
+            },
+            {
+              "name": "Post Install nextest",
+              "conclusion": "success",
+              "seconds": 0.0
+            },
+            {
+              "name": "Post Checkout",
+              "conclusion": "success",
+              "seconds": 3.0
+            },
+            {
+              "name": "Complete job",
+              "conclusion": "success",
+              "seconds": 0.0
+            }
+          ]
+        }
+      ],
+      "runner_seconds": 22607.0,
+      "attempt_elapsed_seconds": 5190.0
+    }
+  ]
+}

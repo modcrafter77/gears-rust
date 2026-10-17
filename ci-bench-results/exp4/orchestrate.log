@@ -1,0 +1,5 @@
+2026-10-15 09:45:06 optimized: following exp2 run 38646280492 attempt 2 (warm)
+2026-10-15 10:54:40 optimized: run 38646280492#2 failure; failed jobs: ['Integration tests']
+2026-10-15 10:54:53 baseline: dispatched ci-bench-baseline-exp4 run 38701948550 (cold, ns=baseline-exp4)
+2026-10-15 12:25:28 collect baseline 38701948550#1 cold: Saved https://github.com/modcrafter77/gears-rust/actions/runs/38701948550 attempt 1 (cold) to D:\projects\gears-rust-Modcrafter77-ci-optimization\.logs\ci-bench\exp4\baseline.json
+2026-10-15 12:25:40 optimized: dispatched ci-bench-optimized-exp4 run 38712818769 (warm, ns=optimized-exp2)

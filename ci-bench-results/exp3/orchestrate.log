@@ -1,0 +1,12 @@
+2026-10-15 02:23:27 optimized: following existing run 38646280492 attempt 1 (cold)
+2026-10-15 02:41:35 collect optimized #1 cold: Saved https://github.com/modcrafter77/gears-rust/actions/runs/38646280492 attempt 1 (cold) to D:\projects\gears-rust-Modcrafter77-ci-optimization\.logs\ci-bench\exp3\optimized.json
+2026-10-15 02:41:47 baseline: dispatched run 38655632131 (cold)
+2026-10-15 04:43:54 baseline: run 38655632131 attempt 1 failure; failed jobs: ['Test Suite (macos-latest)', 'Integration tests', 'Rust Tests / integration']
+2026-10-15 04:43:58 baseline: rerun 38655632131 attempt 2 (warm)
+2026-10-15 06:05:24 baseline: run 38655632131 attempt 2 failure; failed jobs: ['Integration tests', 'Rust Tests / integration']
+2026-10-15 06:05:28 baseline: rerun 38655632131 attempt 3 (warm)
+2026-10-15 07:47:59 baseline: run 38655632131 attempt 3 failure; failed jobs: ['Integration tests', 'Rust Tests / integration', 'Rust Tests / integration']
+2026-10-15 07:47:59 baseline: giving up on this slot after 2 retries
+2026-10-15 07:48:03 baseline: rerun 38655632131 attempt 4 (warm)
+2026-10-15 09:32:05 collect baseline #4 warm: Saved https://github.com/modcrafter77/gears-rust/actions/runs/38655632131 attempt 4 (warm) to D:\projects\gears-rust-Modcrafter77-ci-optimization\.logs\ci-bench\exp3\baseline.json
+2026-10-15 09:32:08 optimized: rerun 38646280492 attempt 2 (warm)

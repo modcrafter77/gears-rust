@@ -1,0 +1,35 @@
+UNMATCHED: CI / cold / Architecture Lints (cargo gears lint); no speed claim
+UNMATCHED: CI / cold / Clippy; no speed claim
+UNMATCHED: CI / cold / Code Coverage (cargo-llvm-cov); no speed claim
+UNMATCHED: CI / cold / Detect changes; no speed claim
+UNMATCHED: CI / cold / FIPS verification (macos-latest); no speed claim
+UNMATCHED: CI / cold / FIPS verification (ubuntu-latest); no speed claim
+UNMATCHED: CI / cold / FIPS verification (windows-latest); no speed claim
+UNMATCHED: CI / cold / Integration tests; no speed claim
+UNMATCHED: CI / cold / Magika feature verification; no speed claim
+UNMATCHED: CI / cold / ONNX embedding provider; no speed claim
+UNMATCHED: CI / cold / Rust Tests / Linux; no speed claim
+UNMATCHED: CI / cold / Rust Tests / Windows; no speed claim
+UNMATCHED: CI / cold / Rust Tests / integration; no speed claim
+UNMATCHED: CI / cold / Rust Tests / macOS; no speed claim
+UNMATCHED: CI / cold / Security (cargo-deny on Ubuntu); no speed claim
+UNMATCHED: CI / cold / Test Suite (macos-latest); no speed claim
+UNMATCHED: CI / cold / Test Suite (ubuntu-latest); no speed claim
+UNMATCHED: CI / cold / Test Suite (windows-latest); no speed claim
+UNMATCHED: CI / cold / graph-storage (PostgreSQL 19 + pgvector, coverage floor); no speed claim
+CI / warm / Architecture Lints (cargo gears lint): 864.0s -> 559.0s (+35.3%), samples 3/3; ranges 696.0..890.0s / 558.0..570.0s
+UNMATCHED: CI / warm / CFS / Validate CFS Artifacts; no speed claim
+CI / warm / Clippy: 1377.0s -> 1317.0s (+4.4%), samples 3/3; ranges 1329.0..1388.0s / 1058.0..1440.0s
+CI / warm / Code Coverage (cargo-llvm-cov): 2428.0s -> 2596.0s (-6.9%), samples 3/3; ranges 1870.0..2482.0s / 2435.0..2814.0s
+CI / warm / Detect changes: 19.0s -> 18.0s (+5.3%), samples 3/3; ranges 17.0..19.0s / 17.0..19.0s
+CI / warm / FIPS verification (macos-latest): 207.0s -> 262.0s (-26.6%), samples 3/3; ranges 203.0..210.0s / 224.0..266.0s
+CI / warm / FIPS verification (ubuntu-latest): 1269.0s -> 641.0s (+49.5%), samples 3/3; ranges 992.0..1279.0s / 571.0..650.0s
+CI / warm / FIPS verification (windows-latest): 206.0s -> 195.0s (+5.3%), samples 3/3; ranges 176.0..332.0s / 169.0..251.0s
+CI / warm / Integration tests: 3884.0s -> 2683.0s (+30.9%), samples 3/3; ranges 3335.0..3919.0s / 2468.0..3100.0s
+CI / warm / Magika feature verification: 207.0s -> 230.0s (-11.1%), samples 3/3; ranges 176.0..216.0s / 188.0..231.0s
+CI / warm / ONNX embedding provider: 287.0s -> 237.0s (+17.4%), samples 3/3; ranges 256.0..311.0s / 208.0..309.0s
+CI / warm / Security (cargo-deny on Ubuntu): 32.0s -> 33.0s (-3.1%), samples 3/3; ranges 28.0..34.0s / 31.0..34.0s
+CI / warm / Test Suite (macos-latest): 4573.0s -> 3908.0s (+14.5%), samples 3/3; ranges 4219.0..5115.0s / 3689.0..4659.0s
+CI / warm / Test Suite (ubuntu-latest): 2293.0s -> 2920.0s (-27.3%), samples 3/3; ranges 2240.0..3246.0s / 2832.0..2926.0s
+CI / warm / Test Suite (windows-latest): 4872.0s -> 5003.0s (-2.7%), samples 3/3; ranges 3846.0..6282.0s / 3295.0..5050.0s
+CI / warm / graph-storage (PostgreSQL 19 + pgvector, coverage floor): 355.0s -> 347.0s (+2.3%), samples 3/3; ranges 350.0..356.0s / 315.0..362.0s

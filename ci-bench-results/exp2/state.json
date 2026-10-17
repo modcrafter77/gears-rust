@@ -1,0 +1,12 @@
+{
+  "baseline": {
+    "ref": "ci-bench-baseline-exp2",
+    "ns": "baseline-exp2",
+    "run": 38619585918
+  },
+  "optimized": {
+    "ref": "ci-bench-optimized-exp2",
+    "ns": "optimized-exp2",
+    "run": 38646280492
+  }
+}
