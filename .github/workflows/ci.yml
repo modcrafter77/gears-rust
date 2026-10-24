@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branches: [ main, develop ]
+    branches: [ main, develop, bench-refresh-base, bench-refresh-opt ]
     paths-ignore:
       - '**/*.md'
       - 'docs/**'
@@ -205,7 +205,7 @@ jobs:
         uses: ./.github/actions/sccache
         with:
           writer: 'false'
-          namespace: ${{ inputs.benchmark_namespace || 'linux-v2' }}
+          namespace: ${{ inputs.benchmark_namespace || 'bench-refresh-1024' }}
           seed: ${{ inputs.benchmark_seed || false }}
 
       - name: Install sccache on other OSes
@@ -300,7 +300,7 @@ jobs:
     uses: ./.github/workflows/test-suite.yml
     with:
       os: ubuntu-latest
-      cache_namespace: ${{ inputs.benchmark_namespace || 'linux-v2' }}
+      cache_namespace: ${{ inputs.benchmark_namespace || 'bench-refresh-1024' }}
       cache_seed: ${{ inputs.benchmark_seed || false }}
 
   integration:
@@ -370,7 +370,7 @@ jobs:
         uses: ./.github/actions/sccache
         with:
           writer: 'false'
-          namespace: ${{ inputs.benchmark_namespace || 'linux-v2' }}
+          namespace: ${{ inputs.benchmark_namespace || 'bench-refresh-1024' }}
           seed: ${{ inputs.benchmark_seed || false }}
 
       - name: Install sccache on other OSes
@@ -619,7 +619,7 @@ jobs:
         uses: ./.github/actions/sccache
         with:
           writer: 'false'
-          namespace: ${{ inputs.benchmark_namespace || 'linux-v2' }}
+          namespace: ${{ inputs.benchmark_namespace || 'bench-refresh-1024' }}
           seed: ${{ inputs.benchmark_seed || false }}
 
       - name: Install sccache on other OSes
@@ -1031,7 +1031,7 @@ jobs:
         uses: ./.github/actions/sccache
         with:
           writer: 'false'
-          namespace: ${{ inputs.benchmark_namespace || 'linux-v2' }}
+          namespace: ${{ inputs.benchmark_namespace || 'bench-refresh-1024' }}
           seed: ${{ inputs.benchmark_seed || false }}
 
       - name: Install sccache on other OSes
@@ -1293,7 +1293,7 @@ jobs:
         uses: ./.github/actions/cargo-gears
         with:
           seed: ${{ inputs.benchmark_seed || false }}
-          namespace: ${{ inputs.benchmark_namespace || 'linux-v2' }}
+          namespace: ${{ inputs.benchmark_namespace || 'bench-refresh-1024' }}
 
       - name: Run architecture lints
         run: tools/scripts/with_rust_annotations.sh cargo gears lint --dylint

@@ -14,7 +14,7 @@ on:
         type: string
       cache_namespace:
         type: string
-        default: linux-v2
+        default: bench-refresh-1024
       cache_seed:
         type: boolean
         default: false
