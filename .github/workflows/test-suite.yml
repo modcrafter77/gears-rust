@@ -119,3 +119,8 @@ jobs:
           path: test-results/*.xml
           if-no-files-found: warn
           retention-days: 14
+
+      - name: Save baseline compilation metrics
+        if: always() && runner.os == 'Linux'
+        continue-on-error: true
+        uses: ./.github/actions/sccache-stats

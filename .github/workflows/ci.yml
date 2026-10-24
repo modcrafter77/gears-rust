@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branches: [ main, develop ]
+    branches: [ main, develop, bench-refresh-base, bench-refresh-opt ]
     paths-ignore:
       - '**/*.md'
       - 'docs/**'
@@ -15,6 +15,13 @@ on:
       - '**/*.md'
       - 'docs/**'
   workflow_dispatch:
+    inputs:
+      benchmark_namespace:
+        type: string
+        default: ''
+      benchmark_seed:
+        type: boolean
+        default: false
 
 # NOTE: workflow-level paths-ignore above still skips the entire workflow for
 # pure doc/markdown changes.  The per-job path filters below provide finer
@@ -224,6 +231,12 @@ jobs:
 
   # Python checks of repo files. They need no Rust toolchain, so they run in
   # their own short job.
+
+      - name: Save baseline compilation metrics
+        if: always() && runner.os == 'Linux'
+        continue-on-error: true
+        uses: ./.github/actions/sccache-stats
+
   repo-checks:
     name: Repo checks
     needs: changes
@@ -485,6 +498,11 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Save baseline compilation metrics
+        if: always() && runner.os == 'Linux'
+        continue-on-error: true
+        uses: ./.github/actions/sccache-stats
+
   test-fips:
     name: FIPS verification (${{ matrix.os }})
     needs: changes
@@ -610,6 +628,12 @@ jobs:
   # PostgreSQL lane the figure is ~55%, because the built-in store is the half
   # of the gear only a real server exercises — so measuring and running are the
   # same job or neither is honest.
+
+      - name: Save baseline compilation metrics
+        if: always() && runner.os == 'Linux'
+        continue-on-error: true
+        uses: ./.github/actions/sccache-stats
+
   test-graph-storage:
     name: graph-storage (PostgreSQL 19 + pgvector, coverage floor)
     needs: changes
@@ -978,6 +1002,11 @@ jobs:
         shell: bash
         timeout-minutes: 10
         run: cargo test -p cf-gears-file-parser --features magika
+
+      - name: Save baseline compilation metrics
+        if: always() && runner.os == 'Linux'
+        continue-on-error: true
+        uses: ./.github/actions/sccache-stats
 
   cfs:
     name: CFS
