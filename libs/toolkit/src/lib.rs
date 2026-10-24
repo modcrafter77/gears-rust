@@ -185,3 +185,5 @@ pub use runtime::{
 
 #[cfg(feature = "bootstrap")]
 pub mod bootstrap;
+
+// Paired CI benchmark: source-only change, identical in both variants.
